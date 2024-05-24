@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <h1>To Do Details</h1>
+    {{ todo.title }} <br>
+    <img src="/media/{{ todo.image }}" width="100" alt="">
+
+    <a href="{% url 'index' %}" class="btn btn-primary btn-sm">Back to List</a>
+
+{% endblock %}

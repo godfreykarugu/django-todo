@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+
+{% block content %}
+	<h1>HOme page</h1>
+    <form action="" method="POST" ENCTYPE="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Enter item">
+        <input type="file" name="image">
+        <input type="submit" value="Submit">
+    </form>
+    <hr>
+    {% for todo in item_todo %}
+        <p><img src="/media/{{ todo.image }}" width="50" alt="">{{ todo }}
+            <a href="{% url 'view' todo.id %}" class="btn btn-secondary btn-sm">View</a>
+            <a href="{% url 'update' todo.id %}" class="btn btn-warning btn-sm">update</a>
+            <a href="{% url 'delete' todo.id %}" class="btn btn-danger btn-sm">Delete</a></p>
+
+    {% endfor %}
+
+    <br>
+    <hr>
+
+      <!-- Pagination controls -->
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+
+
+
+
+
+    <div class="pagination">
+
+            {% if item_todo.has_previous %}
+                <li class="page-item"> <a class="page-link" href="?page=1">&laquo; first</a></li>
+               <li class="page-item">  <a class="page-link" href="?page={{ item_todo.previous_page_number }}">previous</a></li>
+            {% endif %}
+
+            <span class="current">
+              <li class="page-item"> <a href="#" class="page-link disabled">   Page {{ item_todo.number }} of {{ item_todo.paginator.num_pages }}.</a></li>
+            </span>
+
+            {% if item_todo.has_next %}
+               <li class="page-item">  <a class="page-link" href="?page={{ item_todo.next_page_number }}">next</a></li>
+              <li class="page-item">   <a class="page-link" href="?page={{ item_todo.paginator.num_pages }}">last &raquo;</a></li>
+            {% endif %}
+
+    </div>
+  </ul>
+</nav>
+{% endblock %}
